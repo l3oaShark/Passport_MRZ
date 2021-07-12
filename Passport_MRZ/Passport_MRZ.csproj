@@ -82,6 +82,7 @@
     <Compile Include="Models\PassportModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MRZCheckDigitAndCalculator.cs" />
+    <Compile Include="ViewModels\ValidationRules.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

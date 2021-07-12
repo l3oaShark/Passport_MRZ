@@ -5,6 +5,7 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Passport_MRZ.Converters"
+        xmlns:domain="clr-namespace:Passport_MRZ.ViewModels"
         Title="{Binding Title}" Height="auto" Width="auto" WindowState="Maximized">
 
     <Window.Resources>
@@ -127,9 +128,9 @@
                                                 VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
                                                           Width="90"  CharacterCasing="Upper"
                                                              Text="{Binding Path=Type ,UpdateSourceTrigger=PropertyChanged}"
-                                                materialDesign:HintAssist.Hint="Type / รหัส"/>
-
-
+                                                materialDesign:HintAssist.Hint="Type / รหัส">
+                                                       
+                                                    </TextBox>
                                                     <!--<ComboBox HorizontalAlignment="Left" 
                   VerticalAlignment="Top"
                   Margin="12,12,0,0"
@@ -295,7 +296,7 @@
                                                         materialDesign:HintAssist.Hint="Date of issue / วันที่ออก"
                                                         Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                                                         
-                                                        SelectedDate="{Binding Path=SelectDateofexpiry ,UpdateSourceTrigger=PropertyChanged}">
+                                                        SelectedDate="{Binding Path=SelectDateofissue ,UpdateSourceTrigger=PropertyChanged}">
 
                                                     </DatePicker>
 
@@ -315,6 +316,7 @@
                                                         materialDesign:HintAssist.Hint="Date of expiry / วันที่หมดอายุ"
                                                         Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                                                         SelectedDate="{Binding Path=SelectDateofexpiry ,UpdateSourceTrigger=PropertyChanged}">
+                                                   
                                                     </DatePicker>
 
 
