@@ -1,0 +1,344 @@
+﻿<Window x:Class="Passport_MRZ.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Passport_MRZ.Converters"
+        Title="{Binding Title}" Height="auto" Width="auto">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- data template used for the dialogs example, defines a View for a ViewModel of type DateTime  -->
+
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <materialDesign:DialogHost
+        Identifier="RootDialog"
+        DialogTheme="Inherit"
+        SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+
+
+
+        <materialDesign:DrawerHost
+            IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="220" Background="GhostWhite">
+                    <TextBox 
+                        x:Name="DemoItemsSearchBox"
+                        Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                        DockPanel.Dock="Top"
+                        Margin="16, 35"
+                        Width="200"
+                        materialDesign:HintAssist.Hint="Search"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4"/>
+
+                    <Separator />
+
+                    <StackPanel Orientation="Vertical" >
+
+                        <StackPanel Visibility="{Binding CanManageCustomer}" Orientation="Horizontal"  VerticalAlignment="Center" Margin="20,5,5,5">
+                            <materialDesign:PackIcon Kind="AccountCog" VerticalAlignment="Center"/>
+                            <Button Command="{Binding ManageCustomerCommand}" ToolTip="Manage Customer"
+                                    Margin="10,0,0,0" Width="155"
+                                     Content="Manage Customers"/>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding CanManageProduct}" Orientation="Horizontal"  VerticalAlignment="Center" Margin="20,5,5,5">
+                            <materialDesign:PackIcon Kind="PackageVariant" VerticalAlignment="Center"/>
+                            <Button Command="{Binding ManageProductCommand}" ToolTip="Manage Product"
+                                    Margin="10,0,0,0"   Width="155"
+                                     Content="Manage Products"/>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding CanMapping}" Orientation="Horizontal"  VerticalAlignment="Center" Margin="20,5,5,5">
+                            <materialDesign:PackIcon Kind="ChartSankeyVariant" VerticalAlignment="Center"/>
+                            <Button Command="{Binding MappingCommand}" ToolTip="Mapping Field"
+                                    Margin="10,0,0,0"  Width="155"
+                                     Content="Mapping Field"/>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding CanSettingReport}" Orientation="Horizontal"  VerticalAlignment="Center" Margin="20,5,5,5">
+                            <materialDesign:PackIcon Kind="CogSync" VerticalAlignment="Center"/>
+                            <Button Command="{Binding SettingCommand}" ToolTip="Setting Report"
+                                    Margin="10,0,0,0"  Width="155"
+                                     Content="Manage Reports"/>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding CanConfigManage}" Orientation="Horizontal"  VerticalAlignment="Center" Margin="20,5,5,5">
+                            <materialDesign:PackIcon Kind="Connection" VerticalAlignment="Center"/>
+                            <Button Command="{Binding ViewConfigManageCommand}" ToolTip="Setting Connection"
+                                    Margin="10,0,0,0"  Width="155"
+                                Content="Setting Connection"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+
+            <DockPanel Background="{DynamicResource AttentionToActionBrush}">
+                <ScrollViewer>
+                    <materialDesign:ColorZone
+                    Padding="16"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    Mode="Dark"
+                    DockPanel.Dock="Top">
+                        <DockPanel>
+
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <materialDesign:Card Width="auto" 
+                                                 Background="{DynamicResource MaterialDesignCheckBoxDisabled}"
+                                                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                                Padding="8" UniformCornerRadius="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Margin="10"  Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                                            <TextBlock HorizontalAlignment="Center" Text="Passport" Style="{StaticResource MaterialDesignHeadline6TextBlock}"  />
+
+                                            <Image x:Name="ImgUser" 
+                                     Height="200" Width="196" Stretch="UniformToFill" HorizontalAlignment="Left"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                            <StackPanel Margin="10,10,10,10">
+                                                <StackPanel Orientation="Horizontal" Margin="5">
+                                                    <TextBox Margin="0,0,10,0"  Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+                                                          Width="90"  CharacterCasing="Upper"
+                                                             Text="{Binding Path=Type ,UpdateSourceTrigger=PropertyChanged}"
+                                                materialDesign:HintAssist.Hint="Type / รหัส"/>
+
+
+                                                    <!--<ComboBox HorizontalAlignment="Left" 
+                  VerticalAlignment="Top"
+                  Margin="12,12,0,0"
+                  Width="200"
+                  ItemsSource="{Binding Countries}"
+                  DisplayMemberPath="DisplayValue"
+                  SelectedValuePath="Value"
+                  SelectedValue="{Binding Country}" />-->
+                                                    <ComboBox materialDesign:HintAssist.Hint="Country Code / ประเทศ"
+                                                     MinWidth="100" Grid.Column="1"  Grid.Row="0" Margin="30,0,0,0"
+                                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                    ItemsSource="{Binding LstcountriesModels, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsTextSearchEnabled="True"
+                                                    DisplayMemberPath="NameAndCode"
+                                                    SelectedValuePath="ThreeLetterCode" >
+                                                        <ComboBox.SelectedItem>
+                                                            <Binding
+                            Path="SelectedCountries"
+                            Mode="TwoWay"
+                            UpdateSourceTrigger="PropertyChanged"/>
+
+                                                        </ComboBox.SelectedItem>
+
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel />
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
+                                                    <TextBox Margin="30,0,0,0" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+                                                             Text="{Binding Path=PassportNo ,UpdateSourceTrigger=PropertyChanged}"
+                                                VerticalScrollBarVisibility="Auto"
+                                                          Width="210" CharacterCasing="Upper"
+                                                materialDesign:HintAssist.Hint="Passport No. / หนังสือเดินทางเลขที่"/>
+
+                                                </StackPanel>
+                                                <TextBox Margin="5,5,5,5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Center" HorizontalAlignment="Left" AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto"
+                                                             Text="{Binding Path=Surname ,UpdateSourceTrigger=PropertyChanged}"
+                                                         CharacterCasing="Upper"
+                                                     Width="300"
+                                                materialDesign:HintAssist.Hint="Surname / นามสกุล"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBox Margin="5,5,5,5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Center" HorizontalAlignment="Left"  AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto"
+                                                     Width="90"  CharacterCasing="Upper"
+                                                             Text="{Binding Path=Title ,UpdateSourceTrigger=PropertyChanged}"
+                                                         
+                                                materialDesign:HintAssist.Hint="Title /คำนำหน้าชื่อ"/>
+
+                                                    <TextBox Margin="5,5,5,5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Center" HorizontalAlignment="Left"  AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto"
+                                                     Width="300" CharacterCasing="Upper"
+                                                             Text="{Binding Path=Name ,UpdateSourceTrigger=PropertyChanged}"
+                                                         
+                                                materialDesign:HintAssist.Hint="Name / ชื่อ"/>
+                                                </StackPanel>
+
+                                                <TextBox Margin="5,5,5,5"  Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Center" HorizontalAlignment="Left" AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" Width="300" CharacterCasing="Upper"
+                                                Text="{Binding Path=NameinThai ,UpdateSourceTrigger=PropertyChanged}"
+                                                           
+                                                materialDesign:HintAssist.Hint="Name in Thai / ชื่อภาษาไทย"/>
+
+                                                <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+
+                                                    <TextBox Margin="0,0,25,0"  Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" CharacterCasing="Upper"
+                                                Text="{Binding Path=Nationality ,UpdateSourceTrigger=PropertyChanged}"
+                                                             
+                                                materialDesign:HintAssist.Hint="Nationality / สัญชาติ"/>
+                                                    <DatePicker x:Name="Dateofbirth"
+                                                        Width="140"
+                                                        materialDesign:HintAssist.Hint="Date of birth / วันเกิด"
+                                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                                        
+                                                        SelectedDate="{Binding Path=SelectDateofbirth ,UpdateSourceTrigger=PropertyChanged}">
+                                                        <DatePicker.Resources>
+                                                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                                                <Setter Property="Control.Template">
+                                                                    <Setter.Value>
+                                                                        <ControlTemplate>
+                                                                            <TextBox x:Name="PART_TextBox"
+                                     Text="{Binding Path=Dateofbirth, StringFormat='dd MMM yyyy', 
+                                     RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                                                        </ControlTemplate>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Style>
+                                                        </DatePicker.Resources>
+                                                    </DatePicker>
+
+                                                  
+
+                                                    <TextBox Margin="10,0,0,0" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto"  Width="250" CharacterCasing="Upper"
+                                                Text="{Binding Path=Identification ,UpdateSourceTrigger=PropertyChanged}"
+                                                             
+                                                materialDesign:HintAssist.Hint="Identification No. / เลขประจำตัวประชานชน"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+
+                                                    <ComboBox materialDesign:HintAssist.Hint="Sex / เพศ"
+                                                     MinWidth="135" Grid.Column="1"  Grid.Row="0" 
+                                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                    ItemsSource="{Binding LstGenderModels, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsTextSearchEnabled="True"
+                                                    DisplayMemberPath="GenderTypeAndCode"
+                                                              SelectedIndex="2"
+                                                    SelectedValuePath="GenderCode" >
+                                                        <ComboBox.SelectedItem>
+                                                            <Binding
+                            Path="SelectedGender"
+                            Mode="TwoWay"
+                            UpdateSourceTrigger="PropertyChanged"/>
+
+                                                        </ComboBox.SelectedItem>
+
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel />
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
+
+                                                    <TextBox Margin="25,0,0,0" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" Width="140" CharacterCasing="Upper"
+                                                Text="{Binding Path=Height ,UpdateSourceTrigger=PropertyChanged}"
+                                                materialDesign:HintAssist.Hint="Height / ส่วนสูง"/>
+
+                                                    <TextBox  Margin="10,0,0,0" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" Width="250" CharacterCasing="Upper"
+                                                Text="{Binding Path=Placeofbrith ,UpdateSourceTrigger=PropertyChanged}"
+                                                              
+                                                materialDesign:HintAssist.Hint="Place of brith. / สถานที่เกิด"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+                                                    <DatePicker  x:Name="Dateofissue"
+                                                        Width="140"
+                                                        materialDesign:HintAssist.Hint="Date of issue / วันที่ออก"
+                                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                                        
+                                                        SelectedDate="{Binding Path=SelectDateofexpiry ,UpdateSourceTrigger=PropertyChanged}">
+
+                                                    </DatePicker>
+
+
+                                                    <TextBox  Margin="20,0,0,0" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" Width="250" CharacterCasing="Upper"
+                                                Text="{Binding Path=IssueAuthority ,UpdateSourceTrigger=PropertyChanged}"
+                                                              
+                                                materialDesign:HintAssist.Hint="Issue Authority / ออกให้โดย"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel  Margin="5,5,5,5" Orientation="Horizontal">
+                                                    <DatePicker  x:Name="Dateofexpiry"
+                                                        Width="140"
+                                                        materialDesign:HintAssist.Hint="Date of expiry / วันที่หมดอายุ"
+                                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                                        SelectedDate="{Binding Path=SelectDateofexpiry ,UpdateSourceTrigger=PropertyChanged}">
+                                                    </DatePicker>
+
+
+                                                    <TextBox Margin="20,0,0,0" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" Width="250" CharacterCasing="Upper"
+                                                Text="{Binding Path=Holder ,UpdateSourceTrigger=PropertyChanged}"
+                                                             
+                                                materialDesign:HintAssist.Hint="Holder's Signature / ลายมือชื่อผู้ถือหนังสือเดินทาง"/>
+
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    
+                                        <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Grid.Row="2">
+                                            <TextBox MinHeight="160" 
+                                                     FontSize="36"
+                                                     FontFamily="OCR-B 10 BT" Margin="20,20,20,20" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                AcceptsReturn="True" TextWrapping="Wrap" 
+                                                     CharacterCasing="Upper"
+                                                     Text="{Binding Path=MRZ ,UpdateSourceTrigger=PropertyChanged}"
+                                                VerticalScrollBarVisibility="Auto" Width="auto" />
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+
+                            </StackPanel>
+
+
+
+                        </DockPanel>
+                    </materialDesign:ColorZone>
+                </ScrollViewer>
+
+
+
+            </DockPanel>
+
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
+</Window>
