@@ -42,7 +42,16 @@ namespace Passport_MRZ.ViewModels
                     ThreeLetterCode = iso[i].ThreeLetterCode,
                     NameAndCode = iso[i].ThreeLetterCode + " : " + iso[i].Name
                 });
-                asd = asd+" " + iso[i].Name;
+                LstNationalityModels.Add(new CountriesModel
+                {
+                    CountriesName = iso[i].Name,
+                    NumericCode = iso[i].NumericCode,
+                    TwoLetterCode = iso[i].TwoLetterCode,
+                    ThreeLetterCode = iso[i].ThreeLetterCode,
+                    NameAndCode = iso[i].ThreeLetterCode + " : " + iso[i].Name
+                });
+                
+
             }
             LstGenderModels.Add(new Gender
             {
@@ -97,6 +106,16 @@ namespace Passport_MRZ.ViewModels
             .Replace("Ü", "UE")
             .Replace("ß", "SS");
             return output;
+        }
+        private List<CountriesModel> _lstNationalityModels = new List<CountriesModel>();
+        public List<CountriesModel> LstNationalityModels
+        {
+            get { return _lstNationalityModels; }
+            set
+            {
+                SetProperty(ref _lstNationalityModels, value);
+                NotifyPropertyChanged("LstNationalityModels");
+            }
         }
         private List<CountriesModel> _lstcountriesModels = new List<CountriesModel>();
         public List<CountriesModel> LstcountriesModels
@@ -161,6 +180,23 @@ namespace Passport_MRZ.ViewModels
                 if (_selectedCountries != null)
                 {
                     CountryCode = _selectedCountries.ThreeLetterCode;
+                }
+
+            }
+        }
+        private CountriesModel _selectedNationality;
+        public CountriesModel SelectedNationality
+        {
+
+            get { return _selectedNationality; }
+            set
+            {
+                SetProperty(ref _selectedNationality, value);
+                NotifyPropertyChanged("SelectedNationality");
+
+                if (_selectedNationality != null)
+                {
+                    Nationality = _selectedNationality.ThreeLetterCode;
                 }
 
             }

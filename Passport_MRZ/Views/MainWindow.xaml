@@ -5,7 +5,7 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Passport_MRZ.Converters"
-        Title="{Binding Title}" Height="auto" Width="auto">
+        Title="{Binding Title}" Height="auto" Width="auto" WindowState="Maximized">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -200,13 +200,27 @@
                                                 materialDesign:HintAssist.Hint="Name in Thai / ชื่อภาษาไทย"/>
 
                                                 <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+                                                    <ComboBox materialDesign:HintAssist.Hint="Nationality / สัญชาติ"
+                                                     MinWidth="100" Grid.Column="1"  Grid.Row="0" 
+                                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                                    ItemsSource="{Binding LstNationalityModels, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsTextSearchEnabled="True"
+                                                    DisplayMemberPath="NameAndCode"
+                                                    SelectedValuePath="ThreeLetterCode" >
+                                                        <ComboBox.SelectedItem>
+                                                            <Binding
+                            Path="SelectedNationality"
+                            Mode="TwoWay"
+                            UpdateSourceTrigger="PropertyChanged"/>
 
-                                                    <TextBox Margin="0,0,25,0"  Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                                VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
-                                                VerticalScrollBarVisibility="Auto" CharacterCasing="Upper"
-                                                Text="{Binding Path=Nationality ,UpdateSourceTrigger=PropertyChanged}"
-                                                             
-                                                materialDesign:HintAssist.Hint="Nationality / สัญชาติ"/>
+                                                        </ComboBox.SelectedItem>
+
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel />
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
                                                     <DatePicker x:Name="Dateofbirth"
                                                         Width="140"
                                                         materialDesign:HintAssist.Hint="Date of birth / วันเกิด"
@@ -228,7 +242,7 @@
                                                         </DatePicker.Resources>
                                                     </DatePicker>
 
-                                                  
+
 
                                                     <TextBox Margin="10,0,0,0" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                                 VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
@@ -314,7 +328,7 @@
                                                 </StackPanel>
                                             </StackPanel>
                                         </StackPanel>
-                                    
+
                                         <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Grid.Row="2">
                                             <TextBox MinHeight="160" 
                                                      FontSize="36"
