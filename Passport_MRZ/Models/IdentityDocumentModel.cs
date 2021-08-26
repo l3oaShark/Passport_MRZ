@@ -9,8 +9,8 @@ namespace Passport_MRZ.Models
 {
     public class IdentityDocumentModel : DocumentBase
     {
-        public IdentityDocumentModel(CountryCode countryOfIssue, string surName, string givenNames, string documentNum, string dob, string expDate,
-           string optionalOne, string optionalTwo, string placeOfBirth, CountryCode nationality, SexCode sex, string docType)
+        public IdentityDocumentModel(string countryOfIssue, string surName, string givenNames, string documentNum, string dob, string expDate,
+           string optionalOne, string optionalTwo, string placeOfBirth, string nationality, string sex, string docType)
         {
             _countryOfIssue = countryOfIssue;
             _surName = surName;
@@ -28,7 +28,7 @@ namespace Passport_MRZ.Models
 
         string[] _mrz;
         string _docType = string.Empty;
-        CountryCode _countryOfIssue;
+        string _countryOfIssue;
         string _surName = string.Empty;
         string _givenNames = string.Empty;
 
@@ -38,8 +38,8 @@ namespace Passport_MRZ.Models
         string _optionalOne = string.Empty;
         string _optionalTwo = string.Empty;
         string _placeOfBirth = string.Empty;
-        CountryCode _nationality;
-        SexCode _sex;
+        string _nationality;
+        string _sex;
 
         public string[] MRZ
         {
@@ -51,7 +51,7 @@ namespace Passport_MRZ.Models
             get { return _docType; }
             set { _docType = value; }
         }
-        public CountryCode CountryOfIssue
+        public string CountryOfIssue
         {
             get { return _countryOfIssue; }
             set { _countryOfIssue = value; }
@@ -92,12 +92,12 @@ namespace Passport_MRZ.Models
             set { _optionalTwo = value; }
         }
 
-        public CountryCode Nationality
+        public string Nationality
         {
             get { return _nationality; }
             set { _nationality = value; }
         }
-        public SexCode Sex
+        public string Sex
         {
             get { return _sex; }
             set { _sex = value; }

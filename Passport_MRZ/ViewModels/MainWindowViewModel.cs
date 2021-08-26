@@ -92,6 +92,29 @@ namespace Passport_MRZ.ViewModels
             MRZ = MRZCheckDigitAndCalculator.GeneratePassportMRZ(tmp);
 
         }
+        private void GenIdentityMRZ()
+        {
+
+            IdentityDocumentModel tmp = new IdentityDocumentModel(
+                //CountryCode,
+                "UTO",
+                charRemap(Surname.Replace(' ', '<')),
+                charRemap(Name.Replace(' ', '<')),
+                PassportNo,
+                Dateofbirth,
+                Dateofexpiry,
+                charRemap(Identification.Replace(' ', '<')),
+                charRemap(Optional2.Replace(' ', '<')),
+                Dateofissue,
+                //Nationality,
+                "UTO",
+                GenderCode,
+                Type
+                );
+
+            VIZ = MRZCheckDigitAndCalculator.GenerateIdentityCardMRZ(tmp);
+
+        }
         private static string charRemap(string input)
         {
             string output = input
@@ -236,52 +259,53 @@ namespace Passport_MRZ.ViewModels
                 SetProperty(ref _type, value);
                 NotifyPropertyChanged("Type");
                 GenMRZ();
+                GenIdentityMRZ();
             }
         }
         private string _countryCode = string.Empty;
         public string CountryCode
         {
             get { return _countryCode; }
-            set { SetProperty(ref _countryCode, value); NotifyPropertyChanged("CountryCode"); GenMRZ(); }
+            set { SetProperty(ref _countryCode, value); NotifyPropertyChanged("CountryCode"); GenMRZ(); GenIdentityMRZ(); }
         }
         private string _passportNo = string.Empty;
         public string PassportNo
         {
             get { return _passportNo; }
-            set { SetProperty(ref _passportNo, value); NotifyPropertyChanged("PassportNo"); GenMRZ(); }
+            set { SetProperty(ref _passportNo, value); NotifyPropertyChanged("PassportNo"); GenMRZ(); GenIdentityMRZ(); }
         }
         private string _surname = string.Empty;
         public string Surname
         {
             get { return _surname; }
-            set { SetProperty(ref _surname, value); NotifyPropertyChanged("Surname"); GenMRZ(); }
+            set { SetProperty(ref _surname, value); NotifyPropertyChanged("Surname"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private string _title = string.Empty;
         public string Title
         {
             get { return _title; }
-            set { SetProperty(ref _title, value); NotifyPropertyChanged("Title"); GenMRZ(); }
+            set { SetProperty(ref _title, value); NotifyPropertyChanged("Title"); GenMRZ(); GenIdentityMRZ(); }
         }
         private string _name = string.Empty;
         public string Name
         {
             get { return _name; }
-            set { SetProperty(ref _name, value); NotifyPropertyChanged("Name"); GenMRZ(); }
+            set { SetProperty(ref _name, value); NotifyPropertyChanged("Name"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private string _nameinThai = string.Empty;
         public string NameinThai
         {
             get { return _nameinThai; }
-            set { SetProperty(ref _nameinThai, value); NotifyPropertyChanged("NameinThai"); GenMRZ(); }
+            set { SetProperty(ref _nameinThai, value); NotifyPropertyChanged("NameinThai"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private string _nationality = string.Empty;
         public string Nationality
         {
             get { return _nationality; }
-            set { SetProperty(ref _nationality, value); NotifyPropertyChanged("Nationality"); GenMRZ(); }
+            set { SetProperty(ref _nationality, value); NotifyPropertyChanged("Nationality"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private DateTime? _selectdateofbirth;
@@ -306,6 +330,7 @@ namespace Passport_MRZ.ViewModels
             {
                 SetProperty(ref _dateofbirth, value); NotifyPropertyChanged("Dateofbirth");
                 GenMRZ();
+                GenIdentityMRZ();
             }
         }
 
@@ -313,8 +338,15 @@ namespace Passport_MRZ.ViewModels
         public string Identification
         {
             get { return _identification; }
-            set { SetProperty(ref _identification, value); NotifyPropertyChanged("Identification"); GenMRZ(); }
+            set { SetProperty(ref _identification, value); NotifyPropertyChanged("Identification"); GenMRZ(); GenIdentityMRZ(); }
         }
+        private string _optional2 = string.Empty;
+        public string Optional2
+        {
+            get { return _optional2; }
+            set { SetProperty(ref _identification, value); NotifyPropertyChanged("Optional2"); GenMRZ(); GenIdentityMRZ(); }
+        }
+
         private string _displayedImage = string.Empty;
         public string DisplayedImage
         {
@@ -329,21 +361,21 @@ namespace Passport_MRZ.ViewModels
         public string GenderCode
         {
             get { return _genderCode; }
-            set { SetProperty(ref _genderCode, value); NotifyPropertyChanged("GenderCode"); GenMRZ(); }
+            set { SetProperty(ref _genderCode, value); NotifyPropertyChanged("GenderCode"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private string _height = string.Empty;
         public string Height
         {
             get { return _height; }
-            set { SetProperty(ref _height, value); NotifyPropertyChanged("Height"); GenMRZ(); }
+            set { SetProperty(ref _height, value); NotifyPropertyChanged("Height"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private string _placeofbrith = string.Empty;
         public string Placeofbrith
         {
             get { return _placeofbrith; }
-            set { SetProperty(ref _placeofbrith, value); NotifyPropertyChanged("Placeofbrith"); GenMRZ(); }
+            set { SetProperty(ref _placeofbrith, value); NotifyPropertyChanged("Placeofbrith"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private DateTime _selectdateofissue = DateTime.Now;
@@ -364,14 +396,14 @@ namespace Passport_MRZ.ViewModels
         public string Dateofissue
         {
             get { return _dateofissue; }
-            set { SetProperty(ref _dateofissue, value); NotifyPropertyChanged("Dateofissue"); GenMRZ(); }
+            set { SetProperty(ref _dateofissue, value); NotifyPropertyChanged("Dateofissue"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private string _issueAuthority = string.Empty;
         public string IssueAuthority
         {
             get { return _issueAuthority; }
-            set { SetProperty(ref _issueAuthority, value); NotifyPropertyChanged("IssueAuthority"); GenMRZ(); }
+            set { SetProperty(ref _issueAuthority, value); NotifyPropertyChanged("IssueAuthority"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private DateTime _selectdateofexpiry = DateTime.Now;
@@ -392,14 +424,14 @@ namespace Passport_MRZ.ViewModels
         public string Dateofexpiry
         {
             get { return _dateofexpiry; }
-            set { SetProperty(ref _dateofexpiry, value); NotifyPropertyChanged("Dateofexpiry"); GenMRZ(); }
+            set { SetProperty(ref _dateofexpiry, value); NotifyPropertyChanged("Dateofexpiry"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private string _holder = string.Empty;
         public string Holder
         {
             get { return _holder; }
-            set { SetProperty(ref _holder, value); NotifyPropertyChanged("Holder"); GenMRZ(); }
+            set { SetProperty(ref _holder, value); NotifyPropertyChanged("Holder"); GenMRZ(); GenIdentityMRZ(); }
         }
 
         private string _mRZ = string.Empty;
@@ -410,6 +442,16 @@ namespace Passport_MRZ.ViewModels
             {
                 SetProperty(ref _mRZ, value);
                 NotifyPropertyChanged("MRZ");
+            }
+        }
+        private string _vIZ = string.Empty;
+        public string VIZ
+        {
+            get { return _vIZ; }
+            set
+            {
+                SetProperty(ref _vIZ, value);
+                NotifyPropertyChanged("VIZ");
             }
         }
 

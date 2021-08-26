@@ -108,6 +108,7 @@
                                             <RowDefinition Height="auto" />
                                             <RowDefinition Height="auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
@@ -165,16 +166,20 @@
                                                              Text="{Binding Path=PassportNo ,UpdateSourceTrigger=PropertyChanged}"
                                                 VerticalScrollBarVisibility="Auto"
                                                           Width="210" CharacterCasing="Upper"
-                                                materialDesign:HintAssist.Hint="Passport No. / หนังสือเดินทางเลขที่"/>
+                                                materialDesign:HintAssist.Hint="Passport No. , DocumentNO / หนังสือเดินทางเลขที่"/>
 
                                                 </StackPanel>
-                                                <TextBox Margin="5,5,5,5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <TextBox Margin="5,5,5,5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                                 VerticalAlignment="Center" HorizontalAlignment="Left" AcceptsReturn="True" TextWrapping="Wrap"
                                                 VerticalScrollBarVisibility="Auto"
                                                              Text="{Binding Path=Surname ,UpdateSourceTrigger=PropertyChanged}"
                                                          CharacterCasing="Upper"
                                                      Width="300"
                                                 materialDesign:HintAssist.Hint="Surname / นามสกุล"/>
+                                                   
+                                                </StackPanel>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBox Margin="5,5,5,5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                                 VerticalAlignment="Center" HorizontalAlignment="Left"  AcceptsReturn="True" TextWrapping="Wrap"
@@ -251,6 +256,16 @@
                                                 Text="{Binding Path=Identification ,UpdateSourceTrigger=PropertyChanged}"
                                                              
                                                 materialDesign:HintAssist.Hint="Identification No. / เลขประจำตัวประชานชน"/>
+                                                </StackPanel>
+                                                <StackPanel  Margin="5,5,5,5" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                    
+                                                <TextBox Margin="5,5,5,5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                VerticalAlignment="Center" HorizontalAlignment="Left" AcceptsReturn="True" TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto"
+                                                             Text="{Binding Path=Optional2 ,UpdateSourceTrigger=PropertyChanged}"
+                                                         CharacterCasing="Upper"
+                                                     Width="250"
+                                                materialDesign:HintAssist.Hint="Optional2"/>
                                                 </StackPanel>
                                                 <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
 
@@ -334,10 +349,21 @@
                                         <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Grid.Row="2">
                                             <TextBox MinHeight="160" 
                                                      FontSize="36"
+                                                     materialDesign:HintAssist.Hint="MRZ"
                                                      FontFamily="OCR-B 10 BT" Margin="20,20,20,20" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                                 AcceptsReturn="True" TextWrapping="Wrap" 
                                                      CharacterCasing="Upper"
                                                      Text="{Binding Path=MRZ ,UpdateSourceTrigger=PropertyChanged}"
+                                                VerticalScrollBarVisibility="Auto" Width="auto" />
+                                        </StackPanel>
+                                        <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Grid.Row="3">
+                                            <TextBox MinHeight="160" 
+                                                     FontSize="36"
+                                                     materialDesign:HintAssist.Hint="VIZ"
+                                                     FontFamily="OCR-B 10 BT" Margin="20,20,20,20" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                AcceptsReturn="True" TextWrapping="Wrap" 
+                                                     CharacterCasing="Upper"
+                                                     Text="{Binding Path=VIZ ,UpdateSourceTrigger=PropertyChanged}"
                                                 VerticalScrollBarVisibility="Auto" Width="auto" />
                                         </StackPanel>
                                     </Grid>

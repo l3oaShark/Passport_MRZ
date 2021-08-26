@@ -42,7 +42,8 @@ namespace Passport_MRZ.ViewModels
         }
 
 
-        public static string[] GenerateIdentityCardMRZ(IdentityDocumentModel document)
+        //public static string[] GenerateIdentityCardMRZ(IdentityDocumentModel document)
+        public static string GenerateIdentityCardMRZ(IdentityDocumentModel document)
         {
             string[] MRZ = new string[3];
 
@@ -74,7 +75,8 @@ namespace Passport_MRZ.ViewModels
             MRZ[1] = lineTwo;
             MRZ[2] = lineThree;
 
-            return MRZ; //lineOne + Environment.NewLine + lineTwo + Environment.NewLine + lineThree;
+            //return MRZ; //lineOne + Environment.NewLine + lineTwo + Environment.NewLine + lineThree;
+            return lineOne + Environment.NewLine + lineTwo + Environment.NewLine + lineThree;
         }
 
 
