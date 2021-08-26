@@ -96,8 +96,8 @@ namespace Passport_MRZ.ViewModels
         {
 
             IdentityDocumentModel tmp = new IdentityDocumentModel(
-                //CountryCode,
-                "UTO",
+                CountryCode,
+               // "UTO",
                 charRemap(Surname.Replace(' ', '<')),
                 charRemap(Name.Replace(' ', '<')),
                 PassportNo,
@@ -106,8 +106,8 @@ namespace Passport_MRZ.ViewModels
                 charRemap(Identification.Replace(' ', '<')),
                 charRemap(Optional2.Replace(' ', '<')),
                 Dateofissue,
-                //Nationality,
-                "UTO",
+                Nationality,
+                //"UTO",
                 GenderCode,
                 Type
                 );
